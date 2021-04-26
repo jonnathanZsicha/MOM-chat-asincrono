@@ -1,5 +1,6 @@
 package sistemas.distribuios.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,7 @@ public class SenderRecieverWindow {
 
 	Reciever recieverLeft = new Reciever("recMsgQueue");
 	Reciever recieverRight = new Reciever("sentMsgQueue");
+	
 	Thread tRecieverLeft = new Thread(recieverLeft);
 	Thread tRecieverRight = new Thread(recieverRight);
 	
@@ -67,6 +69,8 @@ public class SenderRecieverWindow {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 701, 385);
+		frame.getContentPane().setBackground(Color.orange);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -81,7 +85,7 @@ public class SenderRecieverWindow {
 		frame.getContentPane().add(textSendLeft);
 		textSendLeft.setColumns(10);
 
-		JButton btnSendLeft = new JButton("Send");
+		JButton btnSendLeft = new JButton("Emviar");
 		btnSendLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -89,7 +93,7 @@ public class SenderRecieverWindow {
 				String msg = textSendLeft.getText();
 				if (msg != "" || msg != null) {
 					senderLeft.sendMessage(msg);
-					msgReceivedLeft.setText(msgReceivedLeft.getText() + "\nSent:"
+					msgReceivedLeft.setText(msgReceivedLeft.getText() + "\nEmviado :"
 							+ msg);
 					textSendLeft.setText("");
 				}
@@ -109,15 +113,15 @@ public class SenderRecieverWindow {
 		textSendRight.setBounds(367, 270, 308, 20);
 		frame.getContentPane().add(textSendRight);
 
-		btnSendRight = new JButton("Send");
+		btnSendRight = new JButton("Emviar");
 		btnSendRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Right Sender
+				// Remitente derecho
 				String msg = textSendRight.getText();
 				if (msg != "" || msg != null) {
 					senderRight.sendMessage(msg);
 					msgReceivedRight.setText(msgReceivedRight.getText()
-							+ "\nSent:" + msg);
+							+ "\nEmviado :" + msg);
 					textSendRight.setText("");
 				}
 			}
@@ -133,7 +137,7 @@ public class SenderRecieverWindow {
 					TextMessage tmsg = (TextMessage) msg;
 					try {
 						msgReceivedLeft.setText(msgReceivedLeft.getText()
-								+ "\nReceived:>" + tmsg.getText());
+								+ "\nRecivido:>" + tmsg.getText());
 					} catch (JMSException e) {
 						e.printStackTrace();
 					}
@@ -146,7 +150,7 @@ public class SenderRecieverWindow {
 					TextMessage tmsg = (TextMessage) msg;
 					try {
 						msgReceivedRight.setText(msgReceivedRight.getText()
-								+ "\nReceived:" + tmsg.getText());
+								+ "\nRecivido:" + tmsg.getText());
 					} catch (JMSException e) {
 						e.printStackTrace();
 					}
